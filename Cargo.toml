@@ -1,0 +1,26 @@
+[package]
+name = "xenocore"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["gl"]
+gl = ["windows-sys/Win32_Graphics_OpenGL"]
+
+[target.'cfg(windows)'.dependencies.windows-sys]
+version = "0.52"
+features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_System_LibraryLoader",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Input_KeyboardAndMouse",
+]
+
+# Optimize for size and speed at all costs.
+[profile.optimal]
+inherits = "release"
+codegen-units = 1
+lto = "off"
+panic = "abort"
+strip = true
